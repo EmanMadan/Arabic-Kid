@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>خريطة حرف الباء التفاعلية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sky:#eaf6ff; --pond:#2fb6c9; --pond-dark:#1f8fa0; --sun:#ffc93c; --coral:#ff8767;
+  --grass:#6fc776; --violet:#9b7ff0; --ink:#2d3142; --card:#ffffff; --card-ink:#2d3142;
+  --shadow:0 8px 0 rgba(0,0,0,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --sky:#132430; --card:#1c3440; --card-ink:#eaf6ff; --ink:#eaf6ff; --shadow:0 8px 0 rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{ --sky:#132430; --card:#1c3440; --card-ink:#eaf6ff; --ink:#eaf6ff; --shadow:0 8px 0 rgba(0,0,0,.25); }
+*{box-sizing:border-box;}
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+body{
+  margin:0; min-height:100%; font-family:'Baloo Bhaijaan 2',sans-serif; background:var(--sky); color:var(--ink);
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  background-image:radial-gradient(circle at 15% 10%, #ffffff55 0, transparent 40%), radial-gradient(circle at 85% 85%, #ffffff44 0, transparent 40%);
+}
+.wrap{max-width:640px;margin:0 auto;padding:18px 16px 90px;}
+h1{font-size:clamp(22px,6vw,30px);font-weight:800;text-align:center;margin:6px 0 2px;}
+.sub{text-align:center;color:var(--pond-dark);font-weight:700;margin:0 0 18px;font-size:15px;}
+.hero{display:flex;flex-direction:column;align-items:center;margin-bottom:8px;}
+.hero-circle{
+  width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #6fe3ef, var(--pond) 70%);
+  display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);cursor:pointer;border:none;
+  font-size:80px;color:#fff;font-weight:800;transition:transform .15s;
+}
+.hero-circle:active{transform:scale(.94);}
+.hero-hint{font-size:13px;color:var(--pond-dark);font-weight:700;margin-top:8px;}
+.stem{width:4px;height:26px;background:var(--violet);margin:0 auto;border-radius:2px;}
+.branches{display:grid;grid-template-columns:1fr 1fr;gap:14px;position:relative;}
+.branch{
+  border:none;border-radius:22px;padding:16px 10px;text-align:center;cursor:pointer;color:#fff;font-family:inherit;
+  font-weight:800;font-size:15px;box-shadow:var(--shadow);transition:transform .15s;position:relative;
+}
+.branch::before{content:'';position:absolute;top:-14px;right:50%;width:3px;height:14px;background:var(--violet);}
+.branch:active{transform:translateY(3px);box-shadow:0 4px 0 rgba(0,0,0,.08);}
+.branch .ic{display:block;font-size:32px;margin-bottom:6px;}
+.b1{background:var(--coral);} .b2{background:var(--sun);color:var(--ink);} .b2::before{background:var(--violet);}
+.b3{background:var(--grass);} .b4{background:var(--violet);}
+.panel{display:none;background:var(--card);color:var(--card-ink);border-radius:24px;padding:18px;margin-top:14px;box-shadow:var(--shadow);}
+.panel.show{display:block;animation:pop .25s ease;}
+@keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+.panel h2{margin:0 0 12px;font-size:20px;text-align:center;}
+.home-btn{display:block;margin:0 auto 14px;background:var(--sky);border:2px solid var(--pond);color:var(--pond-dark);
+  font-family:inherit;font-weight:800;padding:8px 18px;border-radius:999px;cursor:pointer;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.ex-card{background:var(--sky);border-radius:16px;padding:10px;text-align:center;}
+.ex-card .lbl{font-size:12px;font-weight:700;color:var(--pond-dark);margin-bottom:4px;}
+.ex-card .em{font-size:28px;}
+.ex-card .wd{font-size:20px;font-weight:800;letter-spacing:1px;}
+.wd mark{background:none;color:#ff3b3b;}
+.divider{text-align:center;font-weight:800;color:var(--pond-dark);margin:14px 0 10px;font-size:15px;}
+.quiz-word{text-align:center;font-size:42px;font-weight:800;margin:6px 0;}
+.quiz-emoji{text-align:center;font-size:44px;}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0;}
+.opt{font-family:inherit;font-weight:700;font-size:14px;padding:12px 6px;border-radius:14px;border:2px solid var(--pond);
+  background:#fff;color:var(--ink);cursor:pointer;}
+.opt:active{transform:scale(.97);}
+.opt.two{grid-column:span 2;font-size:18px;padding:16px;}
+.feedback{text-align:center;font-weight:700;min-height:28px;margin:6px 0;font-size:15px;}
+.progress{display:flex;justify-content:center;gap:6px;margin:10px 0;}
+.dot{width:10px;height:10px;border-radius:50%;background:#dfe6ee;}
+.dot.done{background:var(--grass);}
+.stars{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));left:14px;background:var(--card);color:var(--card-ink);
+  border-radius:999px;padding:6px 14px;font-weight:800;box-shadow:var(--shadow);font-size:14px;z-index:5;}
+.move-fab{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);
+  background:var(--coral);color:#fff;border:none;border-radius:999px;padding:12px 22px;font-family:inherit;font-weight:800;
+  font-size:15px;box-shadow:var(--shadow);cursor:pointer;z-index:5;}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(20,30,40,.5);z-index:10;align-items:center;justify-content:center;padding:20px;}
+.modal-bg.show{display:flex;}
+.modal{background:var(--card);color:var(--card-ink);border-radius:22px;padding:24px 20px;max-width:340px;text-align:center;}
+.modal .em{font-size:54px;}
+.modal p{font-size:17px;font-weight:700;line-height:1.5;}
+.modal button{margin-top:10px;background:var(--pond);color:#fff;border:none;border-radius:999px;padding:10px 26px;
+  font-family:inherit;font-weight:800;font-size:15px;cursor:pointer;}
+.trace-box{position:relative;width:220px;height:220px;margin:6px auto 12px;background:var(--sky);border-radius:20px;overflow:hidden;}
+.trace-letter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:170px;color:#00000022;user-select:none;}
+canvas{position:absolute;inset:0;touch-action:none;}
+.tools{display:flex;justify-content:center;gap:10px;margin-bottom:6px;}
+.small-btn{font-family:inherit;font-weight:700;background:var(--sky);border:2px solid var(--pond);color:var(--pond-dark);
+  border-radius:999px;padding:6px 16px;cursor:pointer;font-size:13px;}
+.runner-track{background:var(--sky);border-radius:999px;height:34px;position:relative;margin:14px 0 8px;overflow:hidden;}
+.runner-fill{position:absolute;inset:0 auto 0 0;background:var(--grass);border-radius:999px;width:0%;transition:width .4s;}
+.runner-ic{position:absolute;top:50%;transform:translate(50%,-50%);font-size:24px;right:0%;transition:right .4s;}
+.center{text-align:center;}
+</style>
+</head>
+<body>
+<div class="stars" id="starsBox">⭐ 0</div>
+
+<div class="wrap">
+  <h1>🌟 خريطة حرف الباء التفاعلية 🌟</h1>
+  <p class="sub">للصف الأول — تعلّم بالحركة واللعب</p>
+
+  <div id="home">
+    <div class="hero">
+      <button class="hero-circle" id="heroLetter">ب</button>
+      <p class="hero-hint">اضغط على الحرف لسماعه، ثم ارسمه بيدك في الهواء ✋</p>
+    </div>
+    <div class="stem"></div>
+    <div class="branches">
+      <button class="branch b1" data-panel="pPos"><span class="ic">📍</span>مواقع الحرف</button>
+      <button class="branch b2" data-panel="pVowel"><span class="ic">🎵</span>المد القصير والطويل</button>
+      <button class="branch b3" data-panel="pTrace"><span class="ic">✋</span>تتبّع الحرف</button>
+      <button class="branch b4" data-panel="pGame"><span class="ic">🏃</span>لعبة الحركة</button>
+    </div>
+  </div>
+
+  <!-- POSITIONS -->
+  <section class="panel" id="pPos">
+    <button class="home-btn" data-home>⬅ الرئيسية</button>
+    <h2>📍 أين يقع حرف الباء؟</h2>
+    <div class="grid2" id="posExamples"></div>
+    <p class="divider">🎮 هيا نتحدى!</p>
+    <div id="posQuizArea"></div>
+  </section>
+
+  <!-- VOWELS -->
+  <section class="panel" id="pVowel">
+    <button class="home-btn" data-home>⬅ الرئيسية</button>
+    <h2>🎵 المد القصير والمد الطويل</h2>
+    <p class="divider">صوت قصير ⚡ (اضغط لتسمع)</p>
+    <div class="grid2" id="shortCards"></div>
+    <p class="divider">صوت طويل ممدود 🙆 (اضغط لتسمع)</p>
+    <div class="grid2" id="longCards"></div>
+    <p class="divider">🎮 قصير أم طويل؟</p>
+    <div id="vowelQuizArea"></div>
+  </section>
+
+  <!-- TRACE -->
+  <section class="panel" id="pTrace">
+    <button class="home-btn" data-home>⬅ الرئيسية</button>
+    <h2>✋ تتبّع حرف الباء</h2>
+    <p class="center" style="font-weight:700;">تتبّع الحرف بإصبعك في المربع، ثم قف وارسمه في الهواء 3 مرات كبيرًا!</p>
+    <div class="trace-box"><div class="trace-letter">ب</div><canvas id="traceCanvas"></canvas></div>
+    <div class="tools"><button class="small-btn" id="clearTrace">امسح 🧽</button><button class="small-btn" id="airDraw">أنجزت! ارسم في الهواء ✋</button></div>
+    <p class="feedback" id="traceMsg"></p>
+  </section>
+
+  <!-- MOVEMENT GAME -->
+  <section class="panel" id="pGame">
+    <button class="home-btn" data-home>⬅ الرئيسية</button>
+    <h2>🏃 لعبة صيد حرف الباء</h2>
+    <p class="center" style="font-weight:700;">هل تحتوي الكلمة على حرف الباء؟ اضغط الإجابة ثم تحرّك حسب التعليمة!</p>
+    <div class="runner-track"><div class="runner-fill" id="runFill"></div><span class="runner-ic" id="runIcon">🐰</span></div>
+    <div id="gameArea"></div>
+  </section>
+</div>
+
+<button class="move-fab" id="moveFab">🤸 استراحة حركية</button>
+<div class="modal-bg" id="modalBg"><div class="modal">
+  <div class="em" id="modalEm">🤸</div>
+  <p id="modalText"></p>
+  <button id="modalClose">تم! 👍</button>
+</div></div>
+
+<script>
+// ---------- helpers ----------
+function speak(t){ try{ const u=new SpeechSynthesisUtterance(t); u.lang='ar-SA'; u.rate=0.85; speechSynthesis.cancel(); speechSynthesis.speak(u);}catch(e){} }
+let stars=0;
+function addStar(){ stars++; document.getElementById('starsBox').textContent='⭐ '+stars; }
+function showPanel(id){
+  document.getElementById('home').style.display = id ? 'none' : 'block';
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('show'));
+  if(id) document.getElementById(id).classList.add('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('.branch').forEach(b=>b.addEventListener('click',()=>showPanel(b.dataset.panel)));
+document.querySelectorAll('[data-home]').forEach(b=>b.addEventListener('click',()=>showPanel(null)));
+document.getElementById('heroLetter').addEventListener('click',()=>speak('باء'));
+
+// ---------- movement break modal ----------
+const moves=[
+  {em:'✋',t:'قف وارسم حرف الباء بيدك في الهواء 3 مرات كبيرًا!'},
+  {em:'👏',t:'صفّق يديك 3 مرات، مرة لكل شكل من أشكال حرف الباء!'},
+  {em:'🐰',t:'اقفز مكانك مثل الأرنب 5 مرات!'},
+  {em:'🙆',t:'مدّ ذراعيك طويلًا كالمد الطويل، وعد إلى 3، ثم اجلس بسرعة!'},
+  {em:'🦵',t:'ارسم حرف الباء بقدمك على الأرض وأنت واقف!'},
+];
+function openMove(){
+  const m=moves[Math.floor(Math.random()*moves.length)];
+  document.getElementById('modalEm').textContent=m.em;
+  document.getElementById('modalText').textContent=m.t;
+  document.getElementById('modalBg').classList.add('show');
+  speak(m.t);
+}
+document.getElementById('moveFab').addEventListener('click',openMove);
+document.getElementById('modalClose').addEventListener('click',()=>document.getElementById('modalBg').classList.remove('show'));
+
+// ---------- POSITIONS ----------
+const posEx=[
+  {lbl:'أول الكلمة',word:'بيت',mark:0,em:'🏠'},
+  {lbl:'وسط الكلمة',word:'ضبع',mark:1,em:'🐆'},
+  {lbl:'آخر الكلمة متصل',word:'كلب',mark:2,em:'🐶'},
+  {lbl:'آخر الكلمة منفصل',word:'كتاب',mark:3,em:'📕'},
+];
+function markWord(word,i){
+  return [...word].map((c,idx)=> idx===i ? '<mark>'+c+'</mark>' : c).join('');
+}
+document.getElementById('posExamples').innerHTML = posEx.map(e=>
+  `<div class="ex-card"><div class="lbl">${e.lbl}</div><div class="em">${e.em}</div><div class="wd">${markWord(e.word,e.mark)}</div></div>`
+).join('');
+
+const posQuiz=[
+  {word:'بيت',em:'🏠',ans:'أول الكلمة'},
+  {word:'ضبع',em:'🐆',ans:'وسط الكلمة'},
+  {word:'كلب',em:'🐶',ans:'آخر الكلمة متصل'},
+  {word:'كتاب',em:'📕',ans:'آخر الكلمة منفصل'},
+  {word:'باب',em:'🚪',ans:'أول الكلمة'},
+  {word:'خباز',em:'👨‍🍳',ans:'وسط الكلمة'},
+];
+let posIdx=0,posScore=0;
+const posOptions=['أول الكلمة','وسط الكلمة','آخر الكلمة متصل','آخر الكلمة منفصل'];
+function renderPosQuiz(){
+  const area=document.getElementById('posQuizArea');
+  if(posIdx>=posQuiz.length){
+    area.innerHTML=`<p class="feedback">🎉 رائع! أجبت صح ${posScore} من ${posQuiz.length}. قف واقفز ${posScore} مرات احتفالًا!</p>`;
+    addStar(); return;
+  }
+  const q=posQuiz[posIdx];
+  area.innerHTML=`
+    <div class="progress">${posQuiz.map((_,i)=>`<span class="dot ${i<posIdx?'done':''}"></span>`).join('')}</div>
+    <div class="quiz-emoji">${q.em}</div>
+    <div class="quiz-word">${q.word}</div>
+    <div class="opts">${posOptions.map(o=>`<button class="opt" data-o="${o}">${o}</button>`).join('')}</div>
+    <p class="feedback" id="posFb"></p>`;
+  area.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{
+    const fb=document.getElementById('posFb');
+    if(b.dataset.o===q.ans){ fb.textContent='✅ أحسنت! صفّق يديك مرة واحدة 👏'; posScore++; speak('أحسنت'); }
+    else { fb.textContent='🤔 حاول المرة القادمة! الإجابة: '+q.ans; }
+    posIdx++; setTimeout(renderPosQuiz,1100);
+  }));
+}
+renderPosQuiz();
+
+// ---------- VOWELS ----------
+const shortV=[{f:'بَ',n:'با'},{f:'بُ',n:'بو'},{f:'بِ',n:'بي'}];
+const longV=[{f:'با',n:'باا'},{f:'بو',n:'بوو'},{f:'بي',n:'بيي'}];
+function vCard(v){ return `<div class="ex-card" style="cursor:pointer" data-say="${v.f}"><div class="wd" style="font-size:30px">${v.f}</div></div>`; }
+document.getElementById('shortCards').innerHTML=shortV.map(vCard).join('');
+document.getElementById('longCards').innerHTML=longV.map(vCard).join('');
+document.querySelectorAll('[data-say]').forEach(c=>c.addEventListener('click',()=>speak(c.dataset.say)));
+
+const vowelQuiz=[
+  {f:'بَ',len:'قصير'},{f:'با',len:'طويل'},{f:'بُ',len:'قصير'},
+  {f:'بو',len:'طويل'},{f:'بِ',len:'قصير'},{f:'بي',len:'طويل'},
+];
+let vIdx=0,vScore=0;
+function renderVowelQuiz(){
+  const area=document.getElementById('vowelQuizArea');
+  if(vIdx>=vowelQuiz.length){
+    area.innerHTML=`<p class="feedback">🎉 ممتاز! أجبت صح ${vScore} من ${vowelQuiz.length}.</p>`;
+    addStar(); return;
+  }
+  const q=vowelQuiz[vIdx];
+  area.innerHTML=`
+    <div class="progress">${vowelQuiz.map((_,i)=>`<span class="dot ${i<vIdx?'done':''}"></span>`).join('')}</div>
+    <div class="quiz-word">${q.f}</div>
+    <div class="opts">
+      <button class="opt two" data-o="قصير">⚡ قصير</button>
+      <button class="opt two" data-o="طويل">🙆 طويل</button>
+    </div>
+    <p class="feedback" id="vFb"></p>`;
+  speak(q.f);
+  area.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{
+    const fb=document.getElementById('vFb');
+    if(b.dataset.o===q.len){
+      vScore++;
+      fb.textContent = q.len==='قصير' ? '✅ صحيح! صفّق مرة سريعة 👏' : '✅ صحيح! مدّ ذراعيك وجمّد 3 ثوانٍ 🙆';
+    } else { fb.textContent='🤔 حاول المرة القادمة! الإجابة: '+q.len; }
+    vIdx++; setTimeout(renderVowelQuiz,1200);
+  }));
+}
+renderVowelQuiz();
+
+// ---------- TRACE (canvas) ----------
+const cv=document.getElementById('traceCanvas');
+let ctx=null; try{ ctx=cv.getContext('2d'); }catch(e){}
+function sizeCanvas(){ if(!ctx)return; const r=cv.getBoundingClientRect(); cv.width=r.width; cv.height=r.height; ctx.lineWidth=8; ctx.lineCap='round'; ctx.strokeStyle='#1f8fa0'; }
+sizeCanvas(); window.addEventListener('resize',sizeCanvas);
+let drawing=false;
+function pos(e){ const r=cv.getBoundingClientRect(); return {x:e.clientX-r.left,y:e.clientY-r.top}; }
+if(ctx){
+  cv.addEventListener('pointerdown',e=>{drawing=true;const p=pos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);});
+  cv.addEventListener('pointermove',e=>{ if(!drawing)return; const p=pos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); });
+  window.addEventListener('pointerup',()=>drawing=false);
+}
+document.getElementById('clearTrace').addEventListener('click',()=>{ if(ctx) ctx.clearRect(0,0,cv.width,cv.height); });
+document.getElementById('airDraw').addEventListener('click',()=>{
+  document.getElementById('traceMsg').textContent='رائع! الآن ارسم حرف الباء في الهواء بيدك 3 مرات كبيرة ✋';
+  speak('رائع، الآن ارسم حرف الباء في الهواء');
+  addStar();
+});
+
+// ---------- MOVEMENT CATCH GAME ----------
+const gWords=[
+  {em:'🦆',w:'بطة',has:true},{em:'🏠',w:'بيت',has:true},{em:'📕',w:'كتاب',has:true},
+  {em:'🐶',w:'كلب',has:true},{em:'🚪',w:'باب',has:true},{em:'🍎',w:'تفاحة',has:false},
+  {em:'☀️',w:'شمس',has:false},{em:'🐱',w:'قطة',has:false},
+];
+let gIdx=0,gScore=0,gOrder=[...gWords].sort(()=>Math.random()-0.5);
+function renderGame(){
+  const area=document.getElementById('gameArea');
+  document.getElementById('runFill').style.width=(gIdx/gOrder.length*100)+'%';
+  document.getElementById('runIcon').style.right=(gIdx/gOrder.length*100)+'%';
+  if(gIdx>=gOrder.length){
+    area.innerHTML=`<p class="feedback">🎉 انتهت اللعبة! أجبت صح ${gScore} من ${gOrder.length}.<br>قف واقفز ${gScore} مرات احتفالًا بنجاحك! 🎉</p>`;
+    addStar(); return;
+  }
+  const q=gOrder[gIdx];
+  area.innerHTML=`
+    <div class="quiz-emoji">${q.em}</div>
+    <div class="quiz-word">${q.w}</div>
+    <div class="opts">
+      <button class="opt two" data-o="1">✅ فيها حرف الباء</button>
+      <button class="opt two" data-o="0">🚫 لا يوجد</button>
+    </div>
+    <p class="feedback" id="gFb"></p>`;
+  area.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{
+    const correct=(b.dataset.o==='1')===q.has;
+    const fb=document.getElementById('gFb');
+    if(correct){ gScore++; fb.textContent='✅ أحسنت! اقفز مكانك مرة واحدة 🤸'; }
+    else { fb.textContent='🤔 حاول مرة أخرى في الجولة القادمة!'; }
+    gIdx++; setTimeout(renderGame,1000);
+  }));
+}
+renderGame();
+</script>
+</body>
+</html>
